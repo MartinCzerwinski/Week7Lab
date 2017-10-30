@@ -25,9 +25,9 @@ public class NoteService {
         return noteDB.getAll();
     }
     
-    public int update(int noteId, String contents) throws NotesDBException {
+    public int update(int noteId, Date date, String contents) throws NotesDBException {
         noteDB = new NoteDB();
-        return noteDB.update(new Note(noteId, null, contents));
+        return noteDB.update(new Note(noteId, date, contents));
     }
     
     public int delete(int noteId) throws NotesDBException {

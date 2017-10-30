@@ -25,4 +25,5 @@ CREATE TABLE Notes (
     PRIMARY KEY (noteId)
 );
 
+INSERT INTO Notes VALUES(1, '2008-12-25', 'Merry Christmas');
 INSERT INTO User values('admin', 'password', 'test@test.com', 1, 'Bob', 'Bobberson');
