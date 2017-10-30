@@ -4,7 +4,7 @@ CREATE DATABASE NotesDB;
 USE NotesDB;
 
 
-DROP TABLE User;
+
 
 CREATE TABLE User( 
     username VARCHAR(10) NOT NULL,
@@ -16,7 +16,7 @@ CREATE TABLE User(
     PRIMARY KEY (username)
 );
 
-DROP TABLE Notes;
+
 
 CREATE TABLE Notes (
     noteId INT NOT NULL AUTO_INCREMENT,
