@@ -21,7 +21,7 @@ public class NoteDB {
         Connection connection = pool.getConnection();
 
         try {
-            String preparedQuery = "INSERT INTO Note (dateCreated, contents) VALUES (?, ?)";
+            String preparedQuery = "INSERT INTO Notes (dateCreated, contents) VALUES (?, ?)";
             PreparedStatement ps = connection.prepareStatement(preparedQuery);
             ps.setDate(1, new java.sql.Date(note.getDate().getTime()));
             ps.setString(2, note.getContents());
@@ -41,7 +41,7 @@ public class NoteDB {
 
         try {
             String preparedSQL = "UPDATE Notes SET "
-                    + "contents = ?, "
+                    + "contents = ? "
                     + "WHERE noteId = ?";
 
             PreparedStatement ps = connection.prepareStatement(preparedSQL);
@@ -120,19 +120,19 @@ public class NoteDB {
         }
     }
 
-    public int delete(Note note) throws NotesDBException {
+    public int delete(int noteId) throws NotesDBException {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
-        String preparedQuery = "DELETE FROM Note WHERE noteId = ?";
+        String preparedQuery = "DELETE FROM Notes WHERE noteId = ?";
         PreparedStatement ps;
 
         try {
             ps = connection.prepareStatement(preparedQuery);
-            ps.setInt(1, note.getNoteId());
+            ps.setInt(1, noteId);
             int rows = ps.executeUpdate();
             return rows;
         } catch (SQLException ex) {
-            Logger.getLogger(NoteDB.class.getName()).log(Level.SEVERE, "Cannot delete " + note.toString(), ex);
+            Logger.getLogger(NoteDB.class.getName()).log(Level.SEVERE, "Cannot delete note " + noteId, ex);
             throw new NotesDBException("Error deleting Note");
         } finally {
             pool.freeConnection(connection);
