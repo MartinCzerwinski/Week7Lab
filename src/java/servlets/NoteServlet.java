@@ -59,12 +59,13 @@ public class NoteServlet extends HttpServlet {
         String action = request.getParameter("action");
         DateFormat dateFormat = new SimpleDateFormat("YYYY-MM-DD");
         String dateString = request.getParameter("dateCreated");
-        Date date = null;
+        java.sql.Date date = null;
         try {
-            date = (Date) dateFormat.parse(dateString);
+            date = new java.sql.Date(dateFormat.parse(dateString).getTime());
         } catch (ParseException ex) {
             Logger.getLogger(NoteServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
         
 
         NoteService us = new NoteService();
@@ -90,7 +91,7 @@ public class NoteServlet extends HttpServlet {
         } catch (Exception ex) {
             Logger.getLogger(NoteServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-        request.setAttribute("notes", notes);
+        request.setAttribute("noteTable", notes);
         getServletContext().getRequestDispatcher("/WEB-INF/notes.jsp").forward(request, response);
     }
 
